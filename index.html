@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Drum Kit</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="https://fav.farm/🔥" />
+</head>
+<body>
+
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">bad-joke</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">horror</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">joke</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">funny</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">losing</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">metal-hit</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">drum-roll</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">cinematic</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">deep</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="sounds/bad-joke.wav"></audio>
+  <audio data-key="83" src="sounds/horror.wav"></audio>
+  <audio data-key="68" src="sounds/joke.wav"></audio>
+  <audio data-key="70" src="sounds/funny.wav"></audio>
+  <audio data-key="71" src="sounds/losing.wav"></audio>
+  <audio data-key="72" src="sounds/metal-hit.wav"></audio>
+  <audio data-key="74" src="sounds/drum-roll.wav"></audio>
+  <audio data-key="75" src="sounds/cinematic.wav"></audio>
+  <audio data-key="76" src="sounds/deep.wav"></audio>
+
+<script>
+
+    function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+        if(!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+        key.classList.add('playing');
+  
+    }
+    
+    function removeTransition(e) {
+        if (e.propertyName !== 'transform')return;
+        this.classList.remove('playing');
+    }
+
+    const keys = document.querySelectorAll('.key');
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+
+    window.addEventListener('keydown', playSound);
+
+</script>
+
+
+</body>
+</html>
